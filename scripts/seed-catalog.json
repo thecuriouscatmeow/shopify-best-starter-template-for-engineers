@@ -1,0 +1,836 @@
+{
+  "collections": [
+    {
+      "handle": "seed-anklets",
+      "title": "Anklets",
+      "description": "Delicate anklets crafted in silver, gold, and oxidised finishes — perfect for everyday wear and festive occasions."
+    },
+    {
+      "handle": "seed-bracelets",
+      "title": "Bracelets",
+      "description": "Charming bracelets in beaded, chain, and bangle styles, designed to stack or wear solo."
+    },
+    {
+      "handle": "seed-earrings",
+      "title": "Earrings",
+      "description": "From classic studs to statement jhumkas, our earrings bring a touch of elegance to every outfit."
+    },
+    {
+      "handle": "seed-hair-bands",
+      "title": "Hair Bands",
+      "description": "Comfortable and stylish hair bands in fabric, elastic, and embellished designs for every hair type."
+    },
+    {
+      "handle": "seed-hair-clips",
+      "title": "Hair Clips",
+      "description": "Trendy and functional hair clips in claw, barrette, and snap styles — an effortless finishing touch."
+    },
+    {
+      "handle": "seed-hair-pins",
+      "title": "Hair Pins",
+      "description": "Elegant and everyday hair pins to keep your style in place — from classic bobby pins to decorative bridal pieces."
+    },
+    {
+      "handle": "seed-hair-ties",
+      "title": "Hair Ties",
+      "description": "Soft, stretchy elastic hair ties that hold every hair type without breakage or creasing."
+    },
+    {
+      "handle": "seed-key-chains",
+      "title": "Key Chains",
+      "description": "Charming key chains that make your everyday carry a little more personal — gifts, charms, and statement pieces."
+    },
+    {
+      "handle": "seed-necklaces",
+      "title": "Necklaces",
+      "description": "Handcrafted necklaces ranging from delicate everyday chains to bold statement pieces rooted in Indian craft traditions."
+    },
+    {
+      "handle": "seed-piercings",
+      "title": "Piercings",
+      "description": "Nose pins, studs, and body jewelry in hypoallergenic metals — understated elegance for every day and every occasion."
+    },
+    {
+      "handle": "seed-rings",
+      "title": "Rings",
+      "description": "A curated selection of rings for every occasion, from everyday stackables to statement pieces."
+    },
+    {
+      "handle": "seed-rubber-bands",
+      "title": "Rubber Bands",
+      "description": "Gentle yet strong hair rubber bands available in multi-packs, suitable for all hair types."
+    },
+    {
+      "handle": "seed-scrunchies",
+      "title": "Scrunchies",
+      "description": "Stylish and hair-friendly scrunchies in a variety of fabrics and patterns."
+    },
+    {
+      "handle": "seed-socks",
+      "title": "Socks",
+      "description": "Comfortable everyday socks with fun prints and premium cotton blends."
+    },
+    {
+      "handle": "seed-sunglasses",
+      "title": "Sunglasses",
+      "description": "Trendy sunglasses offering UV protection and all-day comfort for the Indian sun."
+    }
+  ],
+  "products": [
+    {
+      "collectionHandle": "seed-anklets",
+      "handle": "seed-anklet-silver-oxidised-payal",
+      "title": "Silver Oxidised Payal",
+      "description": "A beautifully crafted oxidised silver anklet featuring intricate floral motifs and tiny ghungroo bells. Lightweight and comfortable, it adds a traditional charm to ethnic and fusion looks.",
+      "vendor": "Aabha",
+      "productType": "Anklet",
+      "option": {
+        "name": "Length",
+        "values": [
+          "9 inch",
+          "10 inch",
+          "11 inch"
+        ]
+      },
+      "price": "349.00"
+    },
+    {
+      "collectionHandle": "seed-anklets",
+      "handle": "seed-anklet-gold-chain-layered",
+      "title": "Gold Layered Chain Anklet",
+      "description": "A dainty double-layered gold-tone chain anklet with a delicate star charm drop. Pairs beautifully with sandals and kurtis for a polished daytime look.",
+      "vendor": "Trinketta",
+      "productType": "Anklet",
+      "option": {
+        "name": "Finish",
+        "values": [
+          "Gold",
+          "Rose Gold"
+        ]
+      },
+      "price": "249.00"
+    },
+    {
+      "collectionHandle": "seed-anklets",
+      "handle": "seed-anklet-beaded-boho",
+      "title": "Boho Beaded Anklet",
+      "description": "Handcrafted with colourful seed beads and a brass lobster clasp, this bohemian-style anklet is perfect for beach trips and summer festivals.",
+      "vendor": "Bloom & Co",
+      "productType": "Anklet",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Turquoise Mix",
+          "Coral Mix",
+          "Earthy Tones"
+        ]
+      },
+      "price": "149.00"
+    },
+    {
+      "collectionHandle": "seed-bracelets",
+      "handle": "seed-bracelet-rose-gold-heart-charm",
+      "title": "Rose Gold Heart Charm Bracelet",
+      "description": "A sleek rose gold link chain bracelet adorned with a petite heart charm. Versatile enough to wear from office to evening outings.",
+      "vendor": "Trinketta",
+      "productType": "Bracelet",
+      "option": {
+        "name": "Finish",
+        "values": [
+          "Rose Gold",
+          "Gold",
+          "Silver"
+        ]
+      },
+      "price": "499.00"
+    },
+    {
+      "collectionHandle": "seed-bracelets",
+      "handle": "seed-bracelet-kundan-bangle",
+      "title": "Kundan Stone Bangle",
+      "description": "An elegant bangle set with classic Kundan stones in a gold-plated setting, inspired by Rajasthani craftsmanship. A statement piece for weddings and festive celebrations.",
+      "vendor": "Aabha",
+      "productType": "Bracelet",
+      "option": {
+        "name": "Size",
+        "values": [
+          "2.4",
+          "2.6",
+          "2.8"
+        ]
+      },
+      "price": "799.00"
+    },
+    {
+      "collectionHandle": "seed-bracelets",
+      "handle": "seed-bracelet-thread-evil-eye",
+      "title": "Evil Eye Thread Bracelet",
+      "description": "A vibrant handwoven thread bracelet featuring a glass evil eye bead at the centre. Adjustable fit, lightweight, and believed to ward off negativity.",
+      "vendor": "Bloom & Co",
+      "productType": "Bracelet",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Royal Blue",
+          "Black",
+          "Red"
+        ]
+      },
+      "price": "199.00"
+    },
+    {
+      "collectionHandle": "seed-earrings",
+      "handle": "seed-earrings-pearl-drop-studs",
+      "title": "Pearl Drop Earrings",
+      "description": "Timeless pearl drop earrings with a gold-tone post, offering a classic and refined look suitable for both casual and formal wear.",
+      "vendor": "Aabha",
+      "productType": "Earrings",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Gold",
+          "Silver",
+          "Rose Gold"
+        ]
+      },
+      "price": "449.00"
+    },
+    {
+      "collectionHandle": "seed-earrings",
+      "handle": "seed-earrings-oxidised-jhumka",
+      "title": "Oxidised Silver Jhumka",
+      "description": "Traditional dome-shaped jhumkas in an oxidised silver finish, embellished with delicate filigree work and tiny hanging beads. A wardrobe staple for ethnic ensembles.",
+      "vendor": "Trinketta",
+      "productType": "Earrings",
+      "option": {
+        "name": "Style",
+        "values": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      },
+      "price": "349.00"
+    },
+    {
+      "collectionHandle": "seed-earrings",
+      "handle": "seed-earrings-enamel-hoop",
+      "title": "Coloured Enamel Hoop Earrings",
+      "description": "Lightweight geometric hoop earrings featuring a glossy enamel finish in bold, vibrant shades. Modern and playful — a perfect pop of colour for everyday outfits.",
+      "vendor": "Bloom & Co",
+      "productType": "Earrings",
+      "option": {
+        "name": "Shade",
+        "values": [
+          "Teal",
+          "Coral",
+          "Mustard",
+          "Ivory"
+        ]
+      },
+      "price": "249.00"
+    },
+    {
+      "collectionHandle": "seed-hair-bands",
+      "handle": "seed-hair-band-velvet-embroidered",
+      "title": "Embroidered Velvet Hair Band",
+      "description": "A wide velvet headband featuring delicate thread embroidery along the crown. Soft, stretchy, and comfortable for all-day wear.",
+      "vendor": "Bloom & Co",
+      "productType": "Hair Band",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Deep Plum",
+          "Forest Green",
+          "Blush Pink"
+        ]
+      },
+      "price": "299.00"
+    },
+    {
+      "collectionHandle": "seed-hair-bands",
+      "handle": "seed-hair-band-pearl-satin",
+      "title": "Satin Pearl Hair Band",
+      "description": "A satin-wrapped elastic headband adorned with a row of faux pearl clusters, adding an effortless bridal or party-ready finish.",
+      "vendor": "Trinketta",
+      "productType": "Hair Band",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Ivory",
+          "Blush",
+          "Black"
+        ]
+      },
+      "price": "349.00"
+    },
+    {
+      "collectionHandle": "seed-hair-bands",
+      "handle": "seed-hair-band-knotted-scrunchie",
+      "title": "Knotted Fabric Scrunchie Band",
+      "description": "A chunky knotted scrunchie headband made from soft cotton-blend fabric, ideal for casual styling or a relaxed day at home.",
+      "vendor": "Aabha",
+      "productType": "Hair Band",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Rust Orange",
+          "Sage Green",
+          "Denim Blue"
+        ]
+      },
+      "price": "129.00"
+    },
+    {
+      "collectionHandle": "seed-hair-clips",
+      "handle": "seed-hair-clip-acetate-claw",
+      "title": "Acetate Claw Clip",
+      "description": "A sturdy large acetate claw clip that holds thick and thin hair alike. Its modern tortoiseshell and solid-colour options complement any look.",
+      "vendor": "Bloom & Co",
+      "productType": "Hair Clip",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Tortoise",
+          "Black",
+          "Pearl White"
+        ]
+      },
+      "price": "199.00"
+    },
+    {
+      "collectionHandle": "seed-hair-clips",
+      "handle": "seed-hair-clip-floral-barrette",
+      "title": "Floral Resin Barrette",
+      "description": "A dainty barrette with a hand-pressed dried-flower resin topper, encased in a clear dome finish. Each piece is unique and makes a charming gift.",
+      "vendor": "Trinketta",
+      "productType": "Hair Clip",
+      "option": {
+        "name": "Style",
+        "values": [
+          "Wild Flowers",
+          "Rose Petals",
+          "Lavender Sprig"
+        ]
+      },
+      "price": "249.00"
+    },
+    {
+      "collectionHandle": "seed-hair-clips",
+      "handle": "seed-hair-clip-metal-snap-set",
+      "title": "Metal Snap Hair Clip Set",
+      "description": "A set of six mini metal snap clips with a matte finish, perfect for pinning back sections or creating neat parted styles. A versatile everyday essential.",
+      "vendor": "Aabha",
+      "productType": "Hair Clip",
+      "option": {
+        "name": "Finish",
+        "values": [
+          "Matte Gold",
+          "Matte Silver"
+        ]
+      },
+      "price": "149.00"
+    },
+    {
+      "collectionHandle": "seed-hair-pins",
+      "handle": "seed-hairpin-pearl-bun",
+      "title": "Pearl Cluster Bobby Pins",
+      "description": "Adorned with creamy faux pearls, these bobby pins add a bridal-ready elegance to any updo or half-up style. Set of four pins in a coordinated cluster design.",
+      "vendor": "Lush Locks",
+      "productType": "Hair Pin",
+      "option": {
+        "name": "Finish",
+        "values": [
+          "Gold",
+          "Silver"
+        ]
+      },
+      "price": "149.00"
+    },
+    {
+      "collectionHandle": "seed-hair-pins",
+      "handle": "seed-hairpin-butterfly-matte",
+      "title": "Matte Butterfly Snap Pin",
+      "description": "A wide butterfly clip in a smooth matte finish, ideal for thick hair that needs a secure, no-slip hold. Lightweight yet strong spring mechanism.",
+      "vendor": "Lush Locks",
+      "productType": "Hair Pin",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Terracotta",
+          "Ivory",
+          "Black"
+        ]
+      },
+      "price": "99.00"
+    },
+    {
+      "collectionHandle": "seed-hair-pins",
+      "handle": "seed-hairpin-oxidised-flower",
+      "title": "Oxidised Floral Side Pin",
+      "description": "Intricately detailed oxidised metal flower pin inspired by traditional Rajasthani motifs. Perfect for adding an artisanal touch to sarees and ethnic wear.",
+      "vendor": "Mishti",
+      "productType": "Hair Pin",
+      "option": {
+        "name": "Style",
+        "values": [
+          "Single Flower",
+          "Double Flower"
+        ]
+      },
+      "price": "199.00"
+    },
+    {
+      "collectionHandle": "seed-hair-ties",
+      "handle": "seed-hairtie-scrunchie-silk",
+      "title": "Satin Scrunchie Set",
+      "description": "Luxuriously smooth satin scrunchies that glide off without snagging or pulling, leaving hair crease-free. A wardrobe staple for everyday and special occasions alike.",
+      "vendor": "Lush Locks",
+      "productType": "Hair Tie",
+      "option": {
+        "name": "Pack",
+        "values": [
+          "Set of 3",
+          "Set of 6"
+        ]
+      },
+      "price": "129.00"
+    },
+    {
+      "collectionHandle": "seed-hair-ties",
+      "handle": "seed-hairtie-elastic-neon",
+      "title": "Neon Elastic Hair Ties",
+      "description": "Thick, no-crease elastic bands in bold neon shades — perfect for workouts or playful everyday styling. Gentle on all hair types and designed to last.",
+      "vendor": "Knot & Tie",
+      "productType": "Hair Tie",
+      "option": {
+        "name": "Pack",
+        "values": [
+          "Set of 6",
+          "Set of 12",
+          "Set of 24"
+        ]
+      },
+      "price": "79.00"
+    },
+    {
+      "collectionHandle": "seed-hair-ties",
+      "handle": "seed-hairtie-velvet-ribbon",
+      "title": "Velvet Ribbon Bow Hair Tie",
+      "description": "A soft velvet ribbon tied into an oversized bow — equal parts hair tie and hair accessory. Pairs beautifully with ponytails, braids, and low buns.",
+      "vendor": "Knot & Tie",
+      "productType": "Hair Tie",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Dusty Rose",
+          "Midnight Blue",
+          "Sage Green"
+        ]
+      },
+      "price": "149.00"
+    },
+    {
+      "collectionHandle": "seed-key-chains",
+      "handle": "seed-keychain-evil-eye-charm",
+      "title": "Evil Eye Charm Key Chain",
+      "description": "A hand-painted glass evil eye bead strung with gold-toned accents on a sturdy ring — a protective charm that doubles as a stylish bag accessory.",
+      "vendor": "Mishti",
+      "productType": "Key Chain",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Blue",
+          "White",
+          "Pink"
+        ]
+      },
+      "price": "199.00"
+    },
+    {
+      "collectionHandle": "seed-key-chains",
+      "handle": "seed-keychain-initial-letter",
+      "title": "Personalised Initial Letter Key Chain",
+      "description": "Polished metal letter charms on a clean split ring — a thoughtful, minimal gift for birthdays and festivals. Available in every letter of the alphabet.",
+      "vendor": "Mishti",
+      "productType": "Key Chain",
+      "option": {
+        "name": "Finish",
+        "values": [
+          "Gold",
+          "Silver",
+          "Rose Gold"
+        ]
+      },
+      "price": "299.00"
+    },
+    {
+      "collectionHandle": "seed-key-chains",
+      "handle": "seed-keychain-tassel-pom",
+      "title": "Boho Tassel Pom-Pom Key Chain",
+      "description": "A vibrant handcrafted tassel with a fluffy pom-pom top, made from dyed cotton threads for rich, lasting colour. Attaches easily to bags, keys, and backpack zippers.",
+      "vendor": "Knot & Tie",
+      "productType": "Key Chain",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Mustard Yellow",
+          "Coral",
+          "Teal",
+          "Fuschia"
+        ]
+      },
+      "price": "129.00"
+    },
+    {
+      "collectionHandle": "seed-necklaces",
+      "handle": "seed-necklace-layered-gold",
+      "title": "Layered Gold Chain Necklace",
+      "description": "Two delicate gold-toned chains at different lengths, joined by a single clasp for an effortlessly layered look. Pairs with both kurtas and western necklines.",
+      "vendor": "Mishti",
+      "productType": "Necklace",
+      "option": {
+        "name": "Length",
+        "values": [
+          "16 inch",
+          "18 inch",
+          "20 inch"
+        ]
+      },
+      "price": "799.00"
+    },
+    {
+      "collectionHandle": "seed-necklaces",
+      "handle": "seed-necklace-kundan-choker",
+      "title": "Kundan Stone Choker Necklace",
+      "description": "A traditional kundan-set choker featuring hand-placed stones in a floral lattice pattern, finished with a satin ribbon tie for an adjustable fit. Ideal for bridal and festive looks.",
+      "vendor": "Mishti",
+      "productType": "Necklace",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Red & Gold",
+          "Green & Gold",
+          "White & Gold"
+        ]
+      },
+      "price": "1299.00"
+    },
+    {
+      "collectionHandle": "seed-necklaces",
+      "handle": "seed-necklace-oxidised-tribal",
+      "title": "Oxidised Tribal Pendant Necklace",
+      "description": "A bold oxidised silver pendant with geometric tribal motifs, suspended from a matching chain. Makes a striking statement with both ethnic and casual everyday outfits.",
+      "vendor": "Knot & Tie",
+      "productType": "Necklace",
+      "option": {
+        "name": "Length",
+        "values": [
+          "18 inch",
+          "22 inch"
+        ]
+      },
+      "price": "549.00"
+    },
+    {
+      "collectionHandle": "seed-piercings",
+      "handle": "seed-piercing-nose-pin-stud",
+      "title": "Classic Nose Pin Stud",
+      "description": "A minimalist bezel-set crystal nose stud with a thin, comfortable push-pin back — designed for pierced noses and sensitive skin. Hypoallergenic surgical steel base.",
+      "vendor": "Mishti",
+      "productType": "Piercing",
+      "option": {
+        "name": "Finish",
+        "values": [
+          "Gold",
+          "Silver",
+          "Rose Gold"
+        ]
+      },
+      "price": "249.00"
+    },
+    {
+      "collectionHandle": "seed-piercings",
+      "handle": "seed-piercing-ear-stud-zirconia",
+      "title": "Zirconia Solitaire Ear Studs",
+      "description": "Brilliant round-cut cubic zirconia set in a four-prong basket, mounted on an 18-gauge post — a classic everyday stud that catches the light beautifully. Sold as a pair.",
+      "vendor": "Lush Locks",
+      "productType": "Piercing",
+      "option": {
+        "name": "Finish",
+        "values": [
+          "Gold",
+          "Silver"
+        ]
+      },
+      "price": "399.00"
+    },
+    {
+      "collectionHandle": "seed-piercings",
+      "handle": "seed-piercing-helix-hoop",
+      "title": "Delicate Helix Hoop Ring",
+      "description": "A slim seamless hoop crafted for cartilage and helix piercings, with a smooth finish that sits flush against the ear. Lightweight and easy to self-insert.",
+      "vendor": "Lush Locks",
+      "productType": "Piercing",
+      "option": {
+        "name": "Size",
+        "values": [
+          "6mm",
+          "8mm",
+          "10mm"
+        ]
+      },
+      "price": "349.00"
+    },
+    {
+      "collectionHandle": "seed-rings",
+      "handle": "seed-ring-stackable-stone-band",
+      "title": "Stackable Stone Band Ring",
+      "description": "A dainty stackable ring featuring a small semi-precious stone centre, perfect for layering with other rings. Available in three classic sizes for a comfortable fit.",
+      "vendor": "Glint",
+      "productType": "Ring",
+      "option": {
+        "name": "Size",
+        "values": [
+          "6",
+          "7",
+          "8"
+        ]
+      },
+      "price": "349.00"
+    },
+    {
+      "collectionHandle": "seed-rings",
+      "handle": "seed-ring-twisted-rope-gold",
+      "title": "Twisted Rope Gold Ring",
+      "description": "A gold-toned twisted rope design ring that adds a subtle texture to any look. Crafted from tarnish-resistant alloy for lasting shine.",
+      "vendor": "Glint",
+      "productType": "Ring",
+      "option": {
+        "name": "Size",
+        "values": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ]
+      },
+      "price": "499.00"
+    },
+    {
+      "collectionHandle": "seed-rings",
+      "handle": "seed-ring-enamel-floral-midi",
+      "title": "Enamel Floral Midi Ring",
+      "description": "A vibrant enamel midi ring with a hand-painted floral motif, designed to sit between the knuckles for a modern stacked look. Nickel-free and skin-safe.",
+      "vendor": "Glint",
+      "productType": "Ring",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Coral",
+          "Teal",
+          "Ivory"
+        ]
+      },
+      "price": "199.00"
+    },
+    {
+      "collectionHandle": "seed-rubber-bands",
+      "handle": "seed-rubber-band-no-crease-clear",
+      "title": "No-Crease Clear Hair Bands",
+      "description": "Ultra-gentle clear elastic hair bands that hold firmly without leaving creases or snagging fine hair. Ideal for everyday use.",
+      "vendor": "Cozy Co",
+      "productType": "Rubber Band",
+      "option": {
+        "name": "Pack",
+        "values": [
+          "Pack of 20",
+          "Pack of 50"
+        ]
+      },
+      "price": "79.00"
+    },
+    {
+      "collectionHandle": "seed-rubber-bands",
+      "handle": "seed-rubber-band-thick-matte-multicolor",
+      "title": "Thick Matte Multicolour Hair Bands",
+      "description": "Bold matte-finish rubber bands in an assorted colour pack, thick enough to hold heavy hair in place all day.",
+      "vendor": "Cozy Co",
+      "productType": "Rubber Band",
+      "option": {
+        "name": "Pack",
+        "values": [
+          "Pack of 12",
+          "Pack of 30",
+          "Pack of 50"
+        ]
+      },
+      "price": "99.00"
+    },
+    {
+      "collectionHandle": "seed-rubber-bands",
+      "handle": "seed-rubber-band-pastel-mini-set",
+      "title": "Pastel Mini Hair Rubber Bands",
+      "description": "Tiny pastel-toned elastic bands perfect for braids, ponytails, and kids' hairstyles. Soft on hair and wrists alike.",
+      "vendor": "Cozy Co",
+      "productType": "Rubber Band",
+      "option": {
+        "name": "Pack",
+        "values": [
+          "Pack of 20",
+          "Pack of 50"
+        ]
+      },
+      "price": "49.00"
+    },
+    {
+      "collectionHandle": "seed-scrunchies",
+      "handle": "seed-scrunchy-velvet-rich-jewel",
+      "title": "Velvet Jewel-Tone Scrunchie",
+      "description": "A lush velvet scrunchie in rich jewel tones that adds an instant touch of elegance to any updo or ponytail. Gentle on all hair types.",
+      "vendor": "Cozy Co",
+      "productType": "Scrunchy",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Emerald",
+          "Burgundy",
+          "Sapphire"
+        ]
+      },
+      "price": "149.00"
+    },
+    {
+      "collectionHandle": "seed-scrunchies",
+      "handle": "seed-scrunchy-printed-satin-floral",
+      "title": "Floral Printed Satin Scrunchie",
+      "description": "A sleek satin scrunchie with a delicate floral print that doubles as a stylish wrist accessory. Smooth fabric minimises hair breakage.",
+      "vendor": "Glint",
+      "productType": "Scrunchy",
+      "option": {
+        "name": "Style",
+        "values": [
+          "Pink Bloom",
+          "Blue Garden",
+          "Sunset Petals"
+        ]
+      },
+      "price": "199.00"
+    },
+    {
+      "collectionHandle": "seed-scrunchies",
+      "handle": "seed-scrunchy-chunky-knit-winter",
+      "title": "Chunky Knit Scrunchie",
+      "description": "A cosy chunky-knit scrunchie that keeps thick hair secure while adding a textured, fashion-forward detail. Perfect for cooler months.",
+      "vendor": "Cozy Co",
+      "productType": "Scrunchy",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Oatmeal",
+          "Dusty Rose"
+        ]
+      },
+      "price": "249.00"
+    },
+    {
+      "collectionHandle": "seed-socks",
+      "handle": "seed-socks-ankle-cotton-solid",
+      "title": "Everyday Cotton Ankle Socks",
+      "description": "Breathable 100% cotton ankle socks with a reinforced heel and toe for durability. A wardrobe staple for daily wear.",
+      "vendor": "Cozy Co",
+      "productType": "Socks",
+      "option": {
+        "name": "Size",
+        "values": [
+          "Free Size",
+          "S/M",
+          "L/XL"
+        ]
+      },
+      "price": "149.00"
+    },
+    {
+      "collectionHandle": "seed-socks",
+      "handle": "seed-socks-crew-quirky-print-pack",
+      "title": "Quirky Print Crew Socks",
+      "description": "Fun crew-length socks featuring bold graphic prints — from fruits to doodles — that let your personality peek out. Sold as a trio so you always have a fresh pair.",
+      "vendor": "Sunny Days",
+      "productType": "Socks",
+      "option": {
+        "name": "Pack",
+        "values": [
+          "Pack of 3",
+          "Pack of 5"
+        ]
+      },
+      "price": "299.00"
+    },
+    {
+      "collectionHandle": "seed-socks",
+      "handle": "seed-socks-no-show-loafer-liner",
+      "title": "No-Show Loafer Liner Socks",
+      "description": "Ultra-low no-show liner socks with a silicone grip heel strip to keep them in place inside loafers and sneakers. Invisible, comfortable, and odour-resistant.",
+      "vendor": "Cozy Co",
+      "productType": "Socks",
+      "option": {
+        "name": "Pack",
+        "values": [
+          "Pack of 3",
+          "Pack of 6"
+        ]
+      },
+      "price": "199.00"
+    },
+    {
+      "collectionHandle": "seed-sunglasses",
+      "handle": "seed-sunglasses-cat-eye-retro",
+      "title": "Retro Cat-Eye Sunglasses",
+      "description": "Classic cat-eye frames with UV400 lenses that complement oval and heart-shaped faces beautifully. Lightweight acetate build for all-day comfort.",
+      "vendor": "Sunny Days",
+      "productType": "Sunglasses",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Black",
+          "Tortoise",
+          "Nude"
+        ]
+      },
+      "price": "799.00"
+    },
+    {
+      "collectionHandle": "seed-sunglasses",
+      "handle": "seed-sunglasses-oversized-square-tinted",
+      "title": "Oversized Square Tinted Sunglasses",
+      "description": "Statement oversized square frames with colour-tinted lenses for a bold, editorial look. Polarised lenses reduce glare on bright Indian afternoons.",
+      "vendor": "Sunny Days",
+      "productType": "Sunglasses",
+      "option": {
+        "name": "Shade",
+        "values": [
+          "Smoke Grey",
+          "Amber",
+          "Rose"
+        ]
+      },
+      "price": "1299.00"
+    },
+    {
+      "collectionHandle": "seed-sunglasses",
+      "handle": "seed-sunglasses-round-wire-frame",
+      "title": "Round Wire-Frame Sunglasses",
+      "description": "Slim gold wire round frames with gradient lenses for a minimalist, timeless aesthetic. Foldable temples make them easy to carry in any bag.",
+      "vendor": "Glint",
+      "productType": "Sunglasses",
+      "option": {
+        "name": "Color",
+        "values": [
+          "Gold/Brown",
+          "Silver/Grey"
+        ]
+      },
+      "price": "599.00"
+    }
+  ]
+}

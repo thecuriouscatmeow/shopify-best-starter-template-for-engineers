@@ -1,0 +1,59 @@
+/* Layer order: base → components → utilities
+   Utilities always win; base never fights components */
+@layer base, components, utilities;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Foundational reset/defaults — Dawn's deleted base.css used to provide these.
+     Color comes from the merchant :root palette (theme.liquid); all other values
+     come from tokens.css. No hardcoded colors. Lives in @layer base so utilities
+     and component styles always win. */
+  body {
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+    font-family: var(--font-body-family, var(--font-body));
+    line-height: var(--line-height-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading-family, var(--font-heading));
+    line-height: var(--line-height-heading);
+    color: rgb(var(--color-foreground));
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: var(--border-width) solid rgb(var(--color-accent));
+    outline-offset: var(--spacing-xs);
+  }
+
+  /* Screen-reader only utility — mirrors Tailwind's sr-only but uses the Dawn class name */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* Section-level overrides go here using @layer components {
+   .section-hero { ... }
+} to stay below utilities */

@@ -1,0 +1,102 @@
+{% comment %}
+  Renders the "Sort by" dropdown. Used by facets.liquid for the horizontal
+  filter layout and the drawer sort form. The <select id="SortBy"> + name="sort_by"
+  are read by facets.js (form-change handler) — kept verbatim.
+
+  Accepts:
+  - results: {Object} Collection or Search object
+  - sort_by: {String} currently selected sort value
+
+  Usage:
+  {% render 'facets-sort', results: results, sort_by: sort_by %}
+{% endcomment %}
+
+<div class="facet-filters sorting">
+  <div class="facet-filters__field">
+    <h2 class="facet-filters__label">
+      <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+    </h2>
+    <div class="facets-select">
+      <select
+        name="sort_by"
+        class="facet-filters__sort facets-select__select"
+        id="SortBy"
+        aria-describedby="a11y-refresh-page-message"
+      >
+        {%- for option in results.sort_options -%}
+          <option
+            value="{{ option.value | escape }}"
+            {% if option.value == sort_by %}
+              selected="selected"
+            {% endif %}
+          >
+            {{ option.name | escape }}
+          </option>
+        {%- endfor -%}
+      </select>
+      <span class="facets-select__caret">
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </span>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  @layer components {
+    .facet-filters.sorting {
+      display: flex;
+      align-items: center;
+    }
+
+    .facet-filters__field {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm, 0.8rem);
+    }
+
+    .facet-filters__label {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .facets-select {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .facets-select__select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding: 0.7rem 3.2rem 0.7rem 1.2rem;
+      font-size: 1.4rem;
+      color: rgb(var(--color-foreground));
+      background: transparent;
+      border: var(--border-width, 1px) solid rgb(var(--color-foreground) / 0.2);
+      border-radius: var(--border-radius-sm, 0.4rem);
+      cursor: pointer;
+    }
+
+    .facets-select__select:focus-visible {
+      outline: var(--border-width, 2px) solid rgb(var(--color-accent));
+      outline-offset: 2px;
+    }
+
+    .facets-select__caret {
+      position: absolute;
+      right: 1.2rem;
+      display: inline-flex;
+      width: 1rem;
+      height: 1rem;
+      pointer-events: none;
+    }
+
+    .facets-select__caret svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+  }
+{% endstylesheet %}

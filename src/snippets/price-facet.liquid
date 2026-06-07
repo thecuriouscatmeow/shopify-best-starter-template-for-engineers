@@ -1,0 +1,47 @@
+<div class="price-facet flex flex-wrap items-center gap-2">
+  <span class="text-sm text-foreground/60">{{ cart.currency.symbol }}</span>
+
+  <div class="price-facet__field flex flex-col gap-1">
+    <label class="visually-hidden" for="{{ id_prefix }}{{ filter.label | escape }}-GTE">
+      {{- 'products.facets.from' | t -}}
+    </label>
+    <input
+      class="price-facet__input w-20 rounded-sm border border-border bg-background px-2 py-1 text-sm text-foreground"
+      name="{{ filter.min_value.param_name }}"
+      id="{{ id_prefix }}{{ filter.label | escape }}-GTE"
+      {%- if filter.min_value.value -%}
+        value="{{ filter.min_value.value | money_without_currency }}"
+      {%- endif -%}
+      type="text"
+      inputmode="decimal"
+      placeholder="0"
+      data-pattern="\d| |,|\."
+      data-min="0"
+      data-max="{{ filter.range_max | money_without_currency }}"
+    >
+  </div>
+
+  {%- if filter_type != 'vertical' -%}
+    <span class="text-sm text-foreground/60">{{ cart.currency.symbol }}</span>
+  {%- endif -%}
+
+  <div class="price-facet__field flex flex-col gap-1">
+    <label class="visually-hidden" for="{{ id_prefix }}{{ filter.label | escape }}-LTE">
+      {{- 'products.facets.to' | t -}}
+    </label>
+    <input
+      class="price-facet__input w-20 rounded-sm border border-border bg-background px-2 py-1 text-sm text-foreground"
+      name="{{ filter.max_value.param_name }}"
+      id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
+      {%- if filter.max_value.value -%}
+        value="{{ filter.max_value.value | money_without_currency }}"
+      {%- endif -%}
+      type="text"
+      inputmode="decimal"
+      placeholder="{{ filter.range_max | money_without_currency }}"
+      data-pattern="\d| |,|\."
+      data-min="0"
+      data-max="{{ filter.range_max | money_without_currency }}"
+    >
+  </div>
+</div>

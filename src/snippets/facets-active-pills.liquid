@@ -1,0 +1,119 @@
+{% comment %}
+  Renders the active-filter pills (one per applied filter value) followed by a
+  "clear all" link. Used by facets.liquid in every place a pill row appears
+  (vertical desktop, horizontal desktop, mobile, drawer). Pure presentational
+  internals — the surrounding contract wrappers (.active-facets-desktop /
+  .active-facets-mobile that facets.js morphs) stay in the caller.
+
+  Accepts:
+  - results: {Object} Collection or Search object
+  - results_url: {String} URL that clears every filter (clear-all target)
+
+  Usage:
+  {% render 'facets-active-pills', results: results, results_url: results_url %}
+{% endcomment %}
+
+{%- for filter in results.filters -%}
+  {%- for value in filter.active_values -%}
+    <facet-remove>
+      <a href="{{ value.url_to_remove }}" class="active-facets__button">
+        <span class="active-facets__button-inner">
+          {{ filter.label | escape }}: {{ value.label | escape }}
+          <span class="active-facets__icon">
+            {{- 'icon-close-small.svg' | inline_asset_content -}}
+          </span>
+          <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+        </span>
+      </a>
+    </facet-remove>
+  {%- endfor -%}
+
+  {%- if filter.type == 'price_range' -%}
+    {% assign min = filter.min_value.value %}
+    {% assign max = filter.max_value.value %}
+    {%- if min != null or max != null -%}
+      <facet-remove>
+        <a href="{{ filter.url_to_remove }}" class="active-facets__button">
+          <span class="active-facets__button-inner">
+            {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
+            <span class="active-facets__icon">
+              {{- 'icon-close-small.svg' | inline_asset_content -}}
+            </span>
+            <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+          </span>
+        </a>
+      </facet-remove>
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+<facet-remove class="active-facets__button-wrapper">
+  <a href="{{ results_url }}" class="active-facets__button-remove">
+    <span>{{ 'products.facets.clear_all' | t }}</span>
+  </a>
+</facet-remove>
+
+{% stylesheet %}
+  @layer components {
+    .active-facets {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--spacing-sm, 0.8rem);
+      margin-block-end: var(--spacing-md, 1.6rem);
+    }
+
+    .active-facets__button {
+      display: inline-flex;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .active-facets__button-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 1rem;
+      font-size: 1.3rem;
+      line-height: 1;
+      border: var(--border-width, 1px) solid rgb(var(--color-foreground) / 0.2);
+      border-radius: var(--border-radius-pill, 999px);
+      background: transparent;
+      transition: background var(--duration-short, 150ms) ease;
+    }
+
+    .active-facets__button:hover .active-facets__button-inner {
+      background: rgb(var(--color-foreground) / 0.06);
+    }
+
+    .active-facets__icon {
+      display: inline-flex;
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .active-facets__icon svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+
+    .active-facets__button-remove {
+      display: inline-flex;
+      align-items: center;
+      font-size: 1.3rem;
+      color: inherit;
+      text-underline-offset: 0.3rem;
+      text-decoration: underline;
+    }
+
+    .active-facets__button-remove:hover {
+      text-decoration: none;
+    }
+
+    /* facets.js toggles .disabled on .js-facet-remove during AJAX refresh */
+    .js-facet-remove.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+{% endstylesheet %}

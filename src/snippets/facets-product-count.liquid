@@ -1,0 +1,68 @@
+{% comment %}
+  Renders the "N results" product-count status block with a loading spinner.
+  facets.js reads the inner <span id="..."> innerHTML to update the count on AJAX
+  refresh and toggles .loading on it — so count_id and the spinner are contract.
+
+  Accepts:
+  - results: {Object} Collection or Search object
+  - count_id: {String} id for the inner <span> — 'ProductCount' or 'ProductCountDesktop'
+
+  Usage:
+  {% render 'facets-product-count', results: results, count_id: 'ProductCount' %}
+{% endcomment %}
+
+<div class="product-count" role="status">
+  <h2 class="product-count__text">
+    <span id="{{ count_id }}">
+      {%- if results.results_count -%}
+        {{ 'templates.search.results_with_count' | t: terms: results.terms, count: results.results_count }}
+      {%- elsif results.products_count == results.all_products_count -%}
+        {{ 'products.facets.product_count_simple' | t: count: results.products_count }}
+      {%- else -%}
+        {{
+          'products.facets.product_count'
+          | t: product_count: results.products_count, count: results.all_products_count
+        }}
+      {%- endif -%}
+    </span>
+  </h2>
+  {%- render 'loading-spinner' -%}
+</div>
+
+{% stylesheet %}
+  @layer components {
+    .product-count {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm, 0.8rem);
+    }
+
+    .product-count__text {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: rgb(var(--color-foreground) / 0.7);
+    }
+
+    /* Spinner: facets.js toggles the `hidden` class on .loading__spinner during
+       an AJAX request (.hidden = display:none from Tailwind utilities). When
+       shown it is an inline flex icon. Self-contained so facets render the same
+       on the search page (where the product-grid section CSS is not loaded). */
+    .product-count .loading__spinner {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .product-count .loading__spinner svg {
+      width: 1.6rem;
+      height: 1.6rem;
+      animation: facets-spin 1s linear infinite;
+    }
+
+    @keyframes facets-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+{% endstylesheet %}

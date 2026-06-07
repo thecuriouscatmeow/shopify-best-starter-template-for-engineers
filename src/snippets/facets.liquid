@@ -1,0 +1,192 @@
+{% comment %}
+  Renders facets (filtering and sorting) — thin orchestrator.
+
+  The repeatable internals live in single-purpose sub-snippets:
+    - facets-active-pills   active-filter pills + clear-all (pill loop)
+    - facets-filter-group   ONE desktop filter <details> (boolean/list/price_range)
+    - facets-sort           the "Sort by" <select>
+    - facets-product-count  the "N results" status block + spinner
+    - facets-mobile         the <menu-drawer> mobile filter/sort drawer
+
+  This file keeps ALL the contract anchors facets.js binds to at the top level:
+  <facet-filters-form>, the form ids (#FacetFiltersForm / #FacetFiltersFormMobile /
+  #FacetFiltersPillsForm / #FacetSortDrawerForm), #FacetsWrapperDesktop,
+  #verticalTitle, the .active-facets-desktop / .active-facets-mobile wrappers, and
+  the #ProductCount block. The rendered DOM (the contract surface) is equivalent
+  to pristine Dawn — only presentational classes changed, no JS hook touched.
+
+  Accepts:
+  - results: {Object} Collection or Search object
+  - enable_filtering: {Boolean} Show filtering when true
+  - enable_sorting: {Boolean} Show sorting when true
+  - filter_type: {String} Type of filter ('vertical' | 'horizontal' | 'drawer')
+  - paginate: {Object}
+
+  Usage:
+  {% render 'facets', results: collection, enable_filtering: true, enable_sorting: true, filter_type: 'vertical', paginate: paginate %}
+{% endcomment %}
+
+{%- liquid
+  assign sort_by = results.sort_by | default: results.default_sort_by
+  if results.url
+    assign results_url = results.url
+  else
+    assign terms = results.terms | escape
+    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  endif
+-%}
+
+<div class="facets-container{% if filter_type == 'drawer' %} facets-container-drawer{% endif %}">
+  {%- if filter_type == 'vertical' or filter_type == 'horizontal' -%}
+    <facet-filters-form class="facets hidden desktop:block">
+      <form
+        id="FacetFiltersForm"
+        class="{% if filter_type == 'horizontal' %}facets__form{% else %}facets__form-vertical{% endif %}"
+      >
+        {%- if results.terms -%}
+          <input type="hidden" name="q" value="{{ results.terms | escape }}">
+          <input name="options[prefix]" type="hidden" value="last">
+        {%- endif -%}
+
+        {% if enable_filtering %}
+          {% comment %} Heading is the first tabbable element on filter type horizontal {% endcomment %}
+          <div
+            id="FacetsWrapperDesktop"
+            {% if filter_type == 'horizontal' %}
+              class="facets__wrapper"
+            {% endif %}
+          >
+            {%- if filter_type == 'horizontal' and results.filters != empty -%}
+              <h2 class="facets__heading" id="verticalTitle" tabindex="-1">
+                {{ 'products.facets.filter_by_label' | t }}
+              </h2>
+            {%- endif -%}
+            {% comment %} Pills are right below the title for filter type vertical {% endcomment %}
+            {%- if filter_type == 'vertical' -%}
+              <div class="active-facets active-facets-desktop">
+                <div class="active-facets-vertical-filter">
+                  {%- unless results.filters == empty -%}
+                    <h2
+                      class="facets__heading facets__heading--vertical"
+                      id="verticalTitle"
+                      tabindex="-1"
+                    >
+                      {{ 'products.facets.filter_by_label' | t }}
+                    </h2>
+                  {%- endunless -%}
+                  <facet-remove class="active-facets__button-wrapper">
+                    <a href="{{ results_url }}" class="active-facets__button-remove">
+                      <span>{{ 'products.facets.clear_all' | t }}</span>
+                    </a>
+                  </facet-remove>
+                </div>
+                {%- for filter in results.filters -%}
+                  {%- for value in filter.active_values -%}
+                    <facet-remove>
+                      <a href="{{ value.url_to_remove }}" class="active-facets__button">
+                        <span class="active-facets__button-inner">
+                          {{ filter.label | escape }}: {{ value.label | escape }}
+                          <span class="active-facets__icon">
+                            {{- 'icon-close-small.svg' | inline_asset_content -}}
+                          </span>
+                          <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                        </span>
+                      </a>
+                    </facet-remove>
+                  {%- endfor -%}
+                  {% if filter.type == 'price_range' %}
+                    {% assign min = filter.min_value.value %}
+                    {% assign max = filter.max_value.value %}
+                    {%- if min != null or max != null -%}
+                      <facet-remove>
+                        <a href="{{ filter.url_to_remove }}" class="active-facets__button">
+                          <span class="active-facets__button-inner">
+                            {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
+                            <span class="active-facets__icon">
+                              {{- 'icon-close-small.svg' | inline_asset_content -}}
+                            </span>
+                            <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                          </span>
+                        </a>
+                      </facet-remove>
+                    {%- endif -%}
+                  {% endif %}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+
+            <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
+            {% comment %} Filters for both horizontal and vertical filter {% endcomment %}
+            {%- for filter in results.filters -%}
+              {% render 'facets-filter-group', filter: filter, filter_type: filter_type, index: forloop.index %}
+            {%- endfor -%}
+          </div>
+          {% comment %} Pills after filters on filter type horizontal {% endcomment %}
+          {%- if filter_type == 'horizontal' -%}
+            <div class="active-facets active-facets-desktop">
+              {% render 'facets-active-pills', results: results, results_url: results_url %}
+            </div>
+          {%- endif -%}
+        {% endif %}
+
+        {% if results.current_vendor or results.current_type %}
+          <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+        {% endif %}
+
+        {%- if filter_type == 'horizontal' -%}
+          {% comment %} Sorting and product count are the last elements when filter type is horizontal {% endcomment %}
+          {%- if enable_sorting -%}
+            {% render 'facets-sort', results: results, sort_by: sort_by %}
+          {%- endif -%}
+          {% render 'facets-product-count', results: results, count_id: 'ProductCountDesktop' %}
+        {%- endif -%}
+      </form>
+    </facet-filters-form>
+  {%- endif -%}
+
+  {% comment %} Drawer and mobile filter {% endcomment %}
+  {% render 'facets-mobile',
+    results: results,
+    results_url: results_url,
+    enable_filtering: enable_filtering,
+    enable_sorting: enable_sorting,
+    filter_type: filter_type,
+    sort_by: sort_by
+  %}
+
+  <div class="active-facets active-facets-mobile desktop:hidden">
+    {% render 'facets-active-pills', results: results, results_url: results_url %}
+  </div>
+
+  {% comment %} Sort, product count and filter pills at the end when filter is type of Drawer for the correct tabbing order {% endcomment %}
+  {%- if enable_sorting and filter_type == 'drawer' -%}
+    <facet-filters-form class="facets hidden desktop:block">
+      <form id="FacetSortDrawerForm" class="facets__form">
+        {% render 'facets-sort', results: results, sort_by: sort_by %}
+
+        {% if results.current_vendor or results.current_type %}
+          <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+        {% endif %}
+
+        {%- if results.terms -%}
+          <input type="hidden" name="q" value="{{ results.terms | escape }}">
+          <input name="options[prefix]" type="hidden" value="last">
+        {%- endif -%}
+      </form>
+    </facet-filters-form>
+  {%- endif -%}
+
+  <div class="product-count-mobile{% if filter_type == 'vertical' or filter_type == 'horizontal' %} desktop:hidden{% endif %}">
+    {% render 'facets-product-count', results: results, count_id: 'ProductCount' %}
+  </div>
+
+  {%- if filter_type == 'drawer' -%}
+    <facet-filters-form class="facets facets-pill hidden desktop:block">
+      <form id="FacetFiltersPillsForm" class="facets__form">
+        <div class="active-facets active-facets-desktop">
+          {% render 'facets-active-pills', results: results, results_url: results_url %}
+        </div>
+      </form>
+    </facet-filters-form>
+  {%- endif -%}
+</div>

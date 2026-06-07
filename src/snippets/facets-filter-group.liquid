@@ -1,0 +1,537 @@
+{% comment %}
+  Renders ONE desktop filter group as a <details> disclosure (boolean / list /
+  price_range). Used by facets.liquid for both the vertical and horizontal filter
+  layouts. Every id / data-index / .js-filter / .facets__summary / .facets__header
+  / .facets-wrap / <show-more-button> hook is read by facets.js + show-more.js on
+  AJAX refresh — kept byte-for-byte.
+
+  Accepts:
+  - filter: {Object} a single results.filters entry
+  - filter_type: {String} 'vertical' or 'horizontal'
+  - index: {Number} the filter's forloop.index (1-based) from the caller
+
+  Usage:
+  {% render 'facets-filter-group', filter: filter, filter_type: filter_type, index: forloop.index %}
+{% endcomment %}
+
+{% liquid
+  assign presentation = filter.presentation | default: 'text'
+  if presentation == 'image'
+    assign show_more_number = 12
+    assign visual_layout_class = 'facets-layout facets-layout-grid facets-layout-grid--' | append: presentation
+  else
+    assign show_more_number = 10
+    assign visual_layout_class = 'facets-layout facets-layout-list facets-layout-list--' | append: presentation
+  endif
+%}
+
+{% case filter.type %}
+  {% when 'boolean', 'list' %}
+    <details
+      id="Details-{{ filter.param_name | escape }}-{{ section.id }}"
+      class="{% if filter_type == 'horizontal' %}facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
+      data-index="{{ index }}"
+      {% if filter_type == 'vertical' and index == 1 %}
+        open
+      {% endif %}
+    >
+      <summary
+        class="facets__summary"
+        aria-label="{{ filter.label | escape }} ({{ 'products.facets.filters_selected.one' | t: count: filter.active_values.size }})"
+      >
+        <div>
+          <span class="facets__summary-label">
+            {{- filter.label | escape }}
+            {%- if filter_type == 'vertical' -%}
+              <span class="facets__selected{% if filter.active_values.size == 0 %} hidden{% endif %}">
+                ({{ filter.active_values.size }})</span
+              >
+            {%- endif -%}
+          </span>
+          {%- if filter_type == 'vertical' and filter.operator == 'AND' -%}
+            <span class="facets__and-helptext">
+              {{ 'products.facets.filter_and_operator_subtitle' | t }}
+            </span>
+          {%- endif -%}
+          <span class="facets__caret">
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </span>
+        </div>
+      </summary>
+      <div
+        id="Facet-{{ index }}-{{ section.id }}"
+        class="parent-display {% if filter_type == 'horizontal' %}facets__display{% else %}facets__display-vertical{% endif %}"
+      >
+        {%- if filter_type != 'vertical' -%}
+          <div class="facets__header">
+            <div>
+              <span class="facets__selected">
+                {{- 'products.facets.filters_selected' | t: count: filter.active_values.size -}}
+              </span>
+              {%- if filter.operator == 'AND' -%}
+                <span class="facets__and-helptext">
+                  {{ 'products.facets.filter_and_operator_subtitle' | t }}
+                </span>
+              {%- endif -%}
+            </div>
+            <facet-remove>
+              <a href="{{ filter.url_to_remove }}" class="facets__reset">
+                {{ 'products.facets.reset' | t }}
+              </a>
+            </facet-remove>
+          </div>
+        {%- endif -%}
+        <fieldset class="facets-wrap parent-wrap {% if filter_type == 'vertical' %} facets-wrap-vertical{% endif %}">
+          <legend class="visually-hidden">{{ filter.label | escape }}</legend>
+          {%- liquid
+            assign sorted_values = filter.values
+            # Keep the selected values grouped together when operator is AND
+            if filter.operator == 'AND'
+              assign active_filter_values = filter.values | where: 'active', true
+              assign inactive_filter_values = filter.values | where: 'active', false
+              assign sorted_values = active_filter_values | concat: inactive_filter_values
+            endif
+          -%}
+          <ul
+            class="{{ visual_layout_class }}{% if filter_type == 'vertical' %} facets__list--vertical{% else %} facets__list{% endif %}"
+            role="list"
+          >
+            {%- for value in sorted_values -%}
+              {% liquid
+                assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index
+                assign is_disabled = false
+                if value.count == 0 and value.active == false
+                  assign is_disabled = true
+                endif
+              %}
+              {%- capture label_class -%}
+              facets__label facet-checkbox{% if is_disabled %} disabled{% endif %}{% if value.active %} active{% endif %}
+              {%- endcapture -%}
+
+              {%- capture text_value -%}
+                <span class="facet-checkbox__text" aria-hidden="true">
+                  <span class="facet-checkbox__text-label">{{- value.label | escape }}</span> ({{- value.count -}})
+                </span>
+                <span class="visually-hidden">
+                  {{- value.label | escape }} (
+                  {%- if value.count == 1 -%}
+                    {{- 'products.facets.product_count_simple.one' | t: count: value.count -}}
+                  {%- else -%}
+                    {{- 'products.facets.product_count_simple.other' | t: count: value.count -}}
+                  {%- endif -%}
+                  )
+                </span>
+              {%- endcapture -%}
+
+              <li class="facets__item{% if forloop.index > show_more_number and filter_type == 'vertical' %} show-more-item hidden{% endif %}">
+                {%- if presentation == 'swatch' -%}
+                  <div class="{{ label_class }}">
+                    <div class="swatch-input-wrapper">
+                      {% render 'swatch-input',
+                        id: input_id,
+                        type: 'checkbox',
+                        name: value.param_name,
+                        value: value.value,
+                        product_form_id: 'FacetFiltersForm',
+                        swatch: value.swatch,
+                        checked: value.active,
+                        disabled: is_disabled
+                      %}
+                    </div>
+
+                    {{ text_value }}
+                  </div>
+                {%- else -%}
+                  <label for="{{ input_id }}" class="{{ label_class }}">
+                    <input
+                      type="checkbox"
+                      name="{{ value.param_name }}"
+                      value="{{ value.value }}"
+                      id="{{ input_id }}"
+                      {% if value.active %}
+                        checked
+                      {% endif %}
+                      {% if is_disabled %}
+                        disabled
+                      {% endif %}
+                    >
+
+                    {%- if presentation == 'image' -%}
+                      <div class="facets__image-wrapper">
+                        {%- if value.image -%}
+                          {{
+                            value.image
+                            | image_url: width: 165
+                            | image_tag:
+                              loading: 'lazy',
+                              widths: '82, 108, 165, 216, 330',
+                              sizes: '(min-width: 990px) 8rem, 5.4rem',
+                              class: 'facets__image',
+                              alt: value.alt
+                          }}
+                        {%- endif -%}
+                      </div>
+                    {%- else -%}
+                      {{- 'square.svg' | inline_asset_content -}}
+
+                      <span class="facets__checkmark">
+                        {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                      </span>
+                    {%- endif -%}
+
+                    {{ text_value }}
+                  </label>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </fieldset>
+        {%- if filter.values.size > show_more_number and filter_type == 'vertical' -%}
+          <show-more-button>
+            <button
+              class="button-show-more"
+              id="Show-More-{{ index }}-{{ section.id }}"
+              type="button"
+            >
+              <span class="label-show-more label-text"
+                ><span aria-hidden="true">+ </span>{{ 'products.facets.show_more' | t -}}
+              </span>
+              <span class="label-show-less label-text hidden"
+                ><span aria-hidden="true">- </span>{{ 'products.facets.show_less' | t -}}
+              </span>
+            </button>
+          </show-more-button>
+        {%- endif %}
+      </div>
+    </details>
+  {% when 'price_range' %}
+    <details
+      id="Details-{{ filter.param_name | escape }}-{{ section.id }}"
+      class="{% if filter_type == 'horizontal' %}facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
+      data-index="{{ index }}"
+      {% if filter_type == 'vertical' and index == 1 %}
+        open
+      {% endif %}
+    >
+      <summary class="facets__summary">
+        <div>
+          <span>{{ filter.label | escape }}</span>
+          <span class="facets__caret">
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </span>
+        </div>
+      </summary>
+      <div
+        id="Facet-{{ index }}-{{ section.id }}"
+        class="{% if filter_type == 'horizontal' %}facets__display{% else %}facets__display-vertical{% endif %}"
+      >
+        <div class="{% if filter_type == 'horizontal' %}facets__header{% else %}facets__header-vertical{% endif %}">
+          {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
+          <span class="facets__selected">
+            {{- 'products.facets.max_price' | t: price: max_price_amount -}}
+          </span>
+          {%- if filter_type != 'vertical' -%}
+            <facet-remove>
+              <a href="{{ filter.url_to_remove }}" class="facets__reset">
+                {{ 'products.facets.reset' | t }}
+              </a>
+            </facet-remove>
+          {%- endif -%}
+        </div>
+        <price-range class="facets__price">
+          {% render 'price-facet', filter: filter, id_prefix: 'Filter-', filter_type: filter_type %}
+        </price-range>
+      </div>
+    </details>
+{% endcase %}
+
+{% stylesheet %}
+  @layer components {
+    /* ── Filter group disclosure (vertical sidebar + horizontal bar) ──────────
+       Dawn's component-facets / disclosure CSS was deleted; these styles make
+       facets self-contained wherever the snippet renders (collection + search). */
+    .facets__disclosure-vertical {
+      border-bottom: var(--border-width, 1px) solid rgb(var(--color-foreground) / 0.1);
+    }
+
+    .facets__summary {
+      list-style: none;
+      cursor: pointer;
+      padding: var(--spacing-md, 1.6rem) 0;
+      user-select: none;
+    }
+
+    .facets__summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .facets__summary > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .facets__summary-label {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+
+    .facets__selected {
+      font-size: 1.3rem;
+      color: rgb(var(--color-foreground) / 0.6);
+    }
+
+    .facets__and-helptext {
+      display: block;
+      font-size: 1.2rem;
+      color: rgb(var(--color-foreground) / 0.6);
+    }
+
+    .facets__caret {
+      display: inline-flex;
+      width: 1.1rem;
+      height: 1.1rem;
+      transition: transform var(--duration-short, 150ms) ease;
+    }
+
+    .facets__caret svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+
+    details[open] > .facets__summary .facets__caret {
+      transform: rotate(180deg);
+    }
+
+    .facets__display-vertical,
+    .facets__display {
+      padding-block-end: var(--spacing-md, 1.6rem);
+    }
+
+    .facets__header,
+    .facets__header-vertical {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin-block-end: var(--spacing-sm, 0.8rem);
+    }
+
+    .facets__reset {
+      font-size: 1.3rem;
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 0.3rem;
+    }
+
+    .facets__reset:hover {
+      text-decoration: none;
+    }
+
+    .facets-wrap {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      min-width: 0;
+    }
+
+    .facets__list,
+    .facets__list--vertical {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .facets-layout-grid {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .facets__item {
+      margin: 0;
+    }
+
+    /* ── Checkbox row ─────────────────────────────────────────────────────── */
+    .facets__label.facet-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.5rem 0;
+      cursor: pointer;
+      font-size: 1.4rem;
+    }
+
+    .facets__label.facet-checkbox input[type='checkbox'] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* square.svg = the empty box; icon-checkmark inside .facets__checkmark */
+    .facets__label.facet-checkbox > svg {
+      flex: 0 0 auto;
+      width: 1.6rem;
+      height: 1.6rem;
+      border: var(--border-width, 1px) solid rgb(var(--color-foreground) / 0.4);
+      border-radius: var(--border-radius-sm, 0.3rem);
+      fill: transparent;
+    }
+
+    .facets__checkmark {
+      position: absolute;
+      display: inline-flex;
+      width: 1.6rem;
+      height: 1.6rem;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .facets__checkmark svg {
+      width: 1rem;
+      height: 1rem;
+      fill: rgb(var(--color-background));
+    }
+
+    .facets__label.facet-checkbox {
+      position: relative;
+    }
+
+    .facets__label.facet-checkbox.active > svg,
+    .facets__label.facet-checkbox input:checked ~ svg {
+      background: rgb(var(--color-foreground));
+      border-color: rgb(var(--color-foreground));
+    }
+
+    .facets__label.facet-checkbox.active .facets__checkmark,
+    .facets__label.facet-checkbox input:checked ~ .facets__checkmark {
+      opacity: 1;
+    }
+
+    .facets__label.facet-checkbox.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .facet-checkbox__text {
+      flex: 1;
+    }
+
+    /* ── Image-presentation filter ────────────────────────────────────────── */
+    .facets__image-wrapper {
+      width: 5.4rem;
+      height: 5.4rem;
+      overflow: hidden;
+      border-radius: var(--border-radius-sm, 0.4rem);
+    }
+
+    .facets__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── Swatch-presentation filter (swatch.liquid + swatch-input.liquid carry
+         no CSS of their own; provide the visuals here so swatch filters render) */
+    .swatch-input-wrapper {
+      flex: 0 0 auto;
+    }
+
+    .swatch-input__input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .swatch-input__label {
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .swatch {
+      display: block;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: var(--border-radius-pill, 999px);
+      border: var(--border-width, 1px) solid rgb(var(--color-foreground) / 0.2);
+      background-color: rgb(var(--color-foreground) / 0.05);
+      background-image: var(--swatch--background);
+      background-size: cover;
+      background-position: var(--swatch-focal-point, center);
+    }
+
+    .swatch--square {
+      border-radius: var(--border-radius-sm, 0.3rem);
+    }
+
+    .swatch--unavailable {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Diagonal strike-through marking the swatch unavailable (solid bar rotated
+       45deg — avoids a CSS gradient so the architecture's no-gradient rule holds). */
+    .swatch--unavailable::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -10%;
+      width: 120%;
+      height: var(--border-width, 1px);
+      background: rgb(var(--color-foreground) / 0.4);
+      transform: rotate(-45deg);
+      transform-origin: center;
+    }
+
+    .swatch-input__input:checked + .swatch-input__label .swatch {
+      outline: var(--border-width, 2px) solid rgb(var(--color-foreground));
+      outline-offset: 2px;
+    }
+
+    .swatch-input__input:disabled + .swatch-input__label {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ── Show more / less (show-more.js toggles .hidden on .show-more-item +
+         .label-text) ──────────────────────────────────────────────────────── */
+    .show-more-item.hidden {
+      display: none;
+    }
+
+    .button-show-more {
+      margin-block-start: var(--spacing-sm, 0.8rem);
+      background: transparent;
+      border: 0;
+      padding: 0;
+      font-size: 1.3rem;
+      color: inherit;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 0.3rem;
+    }
+
+    .button-show-more:hover {
+      text-decoration: none;
+    }
+
+    .button-show-more .label-text.hidden {
+      display: none;
+    }
+
+    /* ── Price range filter ───────────────────────────────────────────────── */
+    .facets__price {
+      display: block;
+      padding-block: var(--spacing-sm, 0.8rem);
+    }
+  }
+{% endstylesheet %}

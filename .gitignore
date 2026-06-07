@@ -1,0 +1,37 @@
+# Secrets — never commit
+.env
+src/.env
+.shopify-token.json
+src/.shopify-token.json
+
+# Compiled Tailwind output (build artifact)
+src/assets/main.css
+
+# Shopify CLI
+.shopify/
+src/.shopify/
+
+# Node
+node_modules/
+src/node_modules/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# Local tooling
+.claude/
+
+# Pre-build research & analysis (kept locally, not published)
+raw_analysis/
+generated_doc_assets/
+structured_output/
+requirements.txt
+scripts/0*.py
+scripts/test_analysis_schema.py
+
+# Internal working docs (kept locally, not published)
+docs/*
+!docs/SESSION-HANDOFF.md
